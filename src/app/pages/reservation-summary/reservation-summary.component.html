@@ -1,0 +1,29 @@
+<section class="container page">
+
+    @if(reservation){
+    <div class="card summary-card">
+        <h1>Réservation confirmée</h1>
+
+        <img [src]="reservation.car.image" [alt]="reservation.car.model">
+
+        <h2>{{ reservation.car.brand }} {{ reservation.car.model }}</h2>
+
+        <p>Date départ : <b>{{ reservation.startDate }}</b></p>
+        <p>Date retour : <b>{{ reservation.endDate }}</b></p>
+        <p>Nombre de jours : <b>{{ reservation.days }}</b></p>
+        <p>Prix total : <b>{{ reservation.totalPrice }} TND</b></p>
+
+        <a routerLink="/cars" class="btn">
+            Retour aux voitures
+        </a>
+    </div>
+    } @else {
+    <div class="card summary-card">
+        <h1>Aucune réservation trouvée</h1>
+        <a routerLink="/cars" class="btn">
+            Voir les voitures
+        </a>
+    </div>
+    }
+
+</section>

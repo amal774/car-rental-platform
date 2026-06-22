@@ -1,0 +1,27 @@
+@if(visible){
+
+<div class="overlay">
+
+    <div class="notification-box">
+
+        <div class="icon">
+            <i class="fa-solid fa-circle-exclamation"></i>
+        </div>
+
+        <h2>{{ title }}</h2>
+
+        <p>{{ message }}</p>
+
+        <button
+                class="btn"
+                (click)="close()">
+
+            OK
+
+        </button>
+
+    </div>
+
+</div>
+
+}

@@ -1,0 +1,42 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 30px;
+}
+
+.form {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+.form h1 {
+  margin-bottom: 20px;
+}
+
+.form input,
+.form textarea {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 12px;
+  border: 1px solid #d8dee8;
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+.contact-info {
+  padding: 30px;
+}
+
+.contact-info p {
+  margin: 15px 0;
+}
+
+@media(max-width: 900px) {
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+}

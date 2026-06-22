@@ -1,0 +1,56 @@
+<section class="hero">
+
+    <div class="container hero-content">
+
+        <h1>
+            Louez la voiture idéale en quelques clics
+        </h1>
+
+        <p>
+            Des véhicules modernes, disponibles et adaptés à tous vos trajets.
+        </p>
+
+        <app-search-bar
+                (search)="searchCars($event)">
+        </app-search-bar>
+
+        <a routerLink="/cars" class="btn secondary">
+            Explorer les voitures
+        </a>
+
+    </div>
+
+</section>
+
+<section class="container page">
+
+    <h2>Voitures populaires</h2>
+
+    <div class="grid">
+
+        @for(car of popularCars; track car.id){
+        <app-car-card [car]="car"></app-car-card>
+        }
+
+    </div>
+
+</section>
+
+<section class="container benefits">
+
+    <div>
+        <i class="fa-solid fa-shield-halved"></i>
+        <h3>Assurance incluse</h3>
+    </div>
+
+    <div>
+        <i class="fa-solid fa-clock"></i>
+        <h3>Réservation rapide</h3>
+    </div>
+
+    <div>
+        <i class="fa-solid fa-headset"></i>
+        <h3>Support 24/7</h3>
+    </div>
+
+</section>

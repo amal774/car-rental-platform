@@ -1,0 +1,30 @@
+@if(car){
+
+<form class="form" [formGroup]="form">
+    <h1>Réservation</h1>
+
+    <h3>{{ car.brand }} {{ car.model }}</h3>
+
+    <label>Date début</label>
+    <input type="date" formControlName="start">
+
+    <label>Date fin</label>
+    <input type="date" formControlName="end">
+
+    <div class="card reservation-summary">
+        <p>Prix/jour : <b>{{ car.pricePerDay }} TND</b></p>
+        <p>Total : <b>{{ total() }} TND</b></p>
+    </div>
+
+    <button type="button" class="btn" (click)="confirm()">
+        Confirmer
+    </button>
+</form>
+
+<app-notification
+        [visible]="showNotification"
+        [title]="notificationTitle"
+        [message]="notificationMessage"
+        (closed)="showNotification = false">
+</app-notification>
+}

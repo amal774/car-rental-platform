@@ -1,0 +1,34 @@
+@if(car){
+<section class="container page detail">
+  <div>
+    <img class="main" [src]="car.image">
+
+    <div class="gallery">
+      @for(img of car.gallery; track img){
+      <img [src]="img">
+      }
+    </div>
+  </div>
+
+  <div class="card info">
+      <span class="badge" [class.off]="!car.available">
+        {{ car.available ? 'Disponible' : 'Non disponible' }}
+      </span>
+
+    <h1>{{ car.brand }} {{ car.model }}</h1>
+    <p>{{ car.description }}</p>
+
+    <ul>
+      <li>Transmission : {{ car.transmission }}</li>
+      <li>Carburant : {{ car.fuel }}</li>
+      <li>Places : {{ car.seats }}</li>
+    </ul>
+
+    <h2>{{ car.pricePerDay }} TND / jour</h2>
+
+    <a [routerLink]="['/reservation', car.id]" class="btn">
+      Réserver
+    </a>
+  </div>
+</section>
+}

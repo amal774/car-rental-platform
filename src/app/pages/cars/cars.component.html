@@ -1,0 +1,27 @@
+<section class="container page">
+
+    <h1>Nos voitures</h1>
+
+    <div class="filters">
+
+        <input
+                [(ngModel)]="search"
+                placeholder="Marque ou modèle">
+
+        <select [(ngModel)]="availability">
+            <option value="all">Toutes</option>
+            <option value="available">Disponibles</option>
+            <option value="unavailable">Non disponibles</option>
+        </select>
+
+    </div>
+
+    <div class="grid">
+
+        @for(car of filteredCars(); track car.id){
+        <app-car-card [car]="car"></app-car-card>
+        }
+
+    </div>
+
+</section>

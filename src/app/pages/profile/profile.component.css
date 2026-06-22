@@ -1,0 +1,43 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.profile-card,
+.history-card {
+  padding: 24px;
+}
+
+.profile-card h2,
+.history-card h2 {
+  margin-bottom: 20px;
+}
+
+.profile-card p {
+  margin: 12px 0;
+}
+
+.reservation-item {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 15px 0;
+}
+
+.reservation-item:last-child {
+  border-bottom: none;
+}
+
+.reservation-item h3 {
+  margin: 0;
+}
+
+.reservation-item p {
+  margin: 5px 0 0;
+  color: #6b7280;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

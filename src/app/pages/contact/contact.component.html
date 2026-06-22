@@ -1,0 +1,56 @@
+<section class="container page grid">
+
+    <form class="form" [formGroup]="form">
+
+        <h1>Contact</h1>
+
+        <input
+                formControlName="name"
+                placeholder="Nom">
+
+        <input
+                formControlName="email"
+                placeholder="Email">
+
+        <textarea
+                formControlName="message"
+                rows="5"
+                placeholder="Message">
+    </textarea>
+
+        <button class="btn" type="submit">
+            Envoyer
+        </button>
+
+    </form>
+
+    <div class="card contact-info">
+
+        <h2>Nos coordonnées</h2>
+
+        <p>
+            <i class="fa-solid fa-location-dot"></i>
+            Tunis, Tunisie
+        </p>
+
+        <p>
+            <i class="fa-solid fa-phone"></i>
+            +216 23 707 000
+        </p>
+
+        <p>
+            <i class="fa-solid fa-envelope"></i>
+            contact@carsolyse_rentcar.tn
+        </p>
+        <div class="map-container">
+            <iframe
+                    src="https://www.google.com/maps?q=Tunis,Tunisia&output=embed"
+                    width="100%"
+                    height="300"
+                    style="border:0"
+                    loading="lazy">
+            </iframe>
+        </div>
+    </div>
+
+</section>

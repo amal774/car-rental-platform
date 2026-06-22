@@ -1,0 +1,12 @@
+<form class="search" (ngSubmit)="submitSearch()">
+
+    <input
+            name="search"
+            [(ngModel)]="term"
+            placeholder="Rechercher une voiture...">
+
+    <button class="btn" type="submit">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </button>
+
+</form>

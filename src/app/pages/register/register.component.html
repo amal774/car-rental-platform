@@ -1,0 +1,62 @@
+<form
+        class="form"
+        [formGroup]="form"
+        (ngSubmit)="submit()">
+
+    <h1>Inscription</h1>
+
+    <input
+            formControlName="lastName"
+            placeholder="Nom">
+
+    <input
+            formControlName="firstName"
+            placeholder="Prénom">
+
+    <input
+            formControlName="age"
+            type="number"
+            placeholder="Âge">
+
+    <input
+            formControlName="email"
+            type="email"
+            placeholder="Email">
+
+    <input
+            formControlName="confirmEmail"
+            type="email"
+            placeholder="Confirmation Email">
+
+    <input
+            formControlName="password"
+            type="password"
+            placeholder="Mot de passe">
+
+    <input
+            formControlName="confirmPassword"
+            type="password"
+            placeholder="Confirmation Mot de passe">
+
+    @if(form.invalid && form.touched){
+    <p class="error">
+        Vérifiez les champs :
+        obligatoire, âge minimum 18 ans,
+        emails et mots de passe identiques.
+    </p>
+    }
+
+    <button
+            class="btn"
+            type="submit">
+        Créer un compte
+    </button>
+
+    <p>
+        Déjà inscrit ?
+        <a routerLink="/login">
+            Connexion
+        </a>
+    </p>
+
+</form>

@@ -1,0 +1,68 @@
+<section class="container admin-page">
+  <div class="admin-header">
+    <p class="eyebrow">Espace administrateur</p>
+    <h1>Gestion des voitures</h1>
+    <p>Ajouter, modifier, supprimer et changer la disponibilité des voitures.</p>
+  </div>
+
+  <div class="admin-grid">
+    <form class="admin-form" [formGroup]="form" (ngSubmit)="saveCar()">
+      <h2>{{ editingCarId ? 'Modifier voiture' : 'Ajouter voiture' }}</h2>
+
+      <div class="form-row">
+        <label>Marque <input formControlName="brand"></label>
+        <label>Modèle <input formControlName="model"></label>
+      </div>
+
+      <div class="form-row">
+        <label>Prix / jour <input type="number" formControlName="pricePerDay"></label>
+        <label>Places <input type="number" formControlName="seats"></label>
+      </div>
+
+      <div class="form-row">
+        <label>Transmission <input formControlName="transmission"></label>
+        <label>Carburant <input formControlName="fuel"></label>
+      </div>
+
+      <label>Image <input formControlName="image"></label>
+      <label>Description <textarea formControlName="description" rows="4"></textarea></label>
+
+      <label class="check">
+        <input type="checkbox" formControlName="available">
+        Disponible
+      </label>
+
+      @if(form.invalid && submitted){
+      <p class="error">Merci de remplir correctement tous les champs.</p>
+      }
+
+      <button class="btn" type="submit">
+        {{ editingCarId ? 'Enregistrer' : 'Ajouter' }}
+      </button>
+    </form>
+
+    <div class="admin-list">
+      <h2>Liste des voitures</h2>
+
+      @for(car of cars; track car.id){
+      <div class="admin-card">
+        <img [src]="car.image" [alt]="car.brand">
+
+        <div>
+          <h3>{{ car.brand }} {{ car.model }}</h3>
+          <p>{{ car.pricePerDay }} DT / jour</p>
+          <span [class.available]="car.available" [class.unavailable]="!car.available">
+              {{ car.available ? 'Disponible' : 'Indisponible' }}
+            </span>
+        </div>
+
+        <div class="admin-card-actions">
+          <button (click)="editCar(car)">Modifier</button>
+          <button (click)="toggleAvailability(car.id)">Disponibilité</button>
+          <button class="danger" (click)="deleteCar(car.id)">Supprimer</button>
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+</section>
