@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CarService } from '../../services/car.service';
 import { Car } from '../../models/car.model';
@@ -20,14 +20,19 @@ export class CarsComponent {
 
 constructor(
   private carService: CarService,
-  private route: ActivatedRoute
+  private route: ActivatedRoute,
+  private cdr: ChangeDetectorRef
 ) {
 
-  this.cars = this.carService.getCars();
+  this.carService.getCars().subscribe(cars => {
+    this.cars = cars;
+    this.cdr.detectChanges();
+  });
 
   this.route.queryParams.subscribe(params => {
 
     this.search = params['search'] || '';
+    this.cdr.detectChanges();
 
   });
 

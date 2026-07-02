@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/about/about.component.css"],
+  "sourcesContent": [".about-card {\r\n  padding: 34px;\r\n}\r\n\r\n.about-card h1 {\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.about-card h2 {\r\n  margin-top: 25px;\r\n  margin-bottom: 10px;\r\n}\r\n\r\n.about-card p {\r\n  line-height: 1.8;\r\n  color: #555;\r\n}\r\n\r\n.about-card ul {\r\n    margin-left: 20px;\r\n    padding-left: 20px;\r\n}\r\n\r\n.about-card li {\r\n    margin-bottom: 10px;\r\n    line-height: 1.7;\r\n}"],
+  "mappings": ";AAAA,CAAC;AACC,WAAS;AACX;AAEA,CAJC,WAIW;AACV,iBAAe;AACjB;AAEA,CARC,WAQW;AACV,cAAY;AACZ,iBAAe;AACjB;AAEA,CAbC,WAaW;AACV,eAAa;AACb,SAAO;AACT;AAEA,CAlBC,WAkBW;AACR,eAAa;AACb,gBAAc;AAClB;AAEA,CAvBC,WAuBW;AACR,iBAAe;AACf,eAAa;AACjB;",
+  "names": []
+}

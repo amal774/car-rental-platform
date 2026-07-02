@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Car } from '../../models/car.model';
@@ -15,10 +15,16 @@ export class AdminCarsComponent {
   cars: Car[] = [];
   editingCarId: number | null = null;
   submitted = false;
+  actionError = '';
+  actionSuccess = '';
   form;
 
-  constructor(private fb: FormBuilder, private carService: CarService) {
-    this.cars = this.carService.getCars();
+  constructor(
+    private fb: FormBuilder,
+    private carService: CarService,
+    private cdr: ChangeDetectorRef
+  ) {
+    this.refreshList();
     this.form = this.fb.group({
       brand: ['', Validators.required],
       model: ['', Validators.required],
@@ -34,6 +40,8 @@ export class AdminCarsComponent {
 
   saveCar(): void {
     this.submitted = true;
+    this.actionError = '';
+    this.actionSuccess = '';
     if (this.form.invalid) return;
 
     const carData = {
@@ -42,30 +50,72 @@ export class AdminCarsComponent {
     } as Omit<Car, 'id'>;
 
     if (this.editingCarId) {
-      this.carService.updateCar(this.editingCarId, carData);
+      this.carService.updateCar(this.editingCarId, carData).subscribe({
+        next: () => {
+          this.actionSuccess = 'Voiture modifiee avec succes.';
+          this.cancelEdit();
+          this.refreshList();
+          this.cdr.detectChanges();
+        },
+        error: () => {
+          this.actionError = 'Impossible de modifier la voiture. Verifiez que car-service et api-gateway sont demarres.';
+        }
+      });
     } else {
-      this.carService.addCar(carData);
+      this.carService.addCar(carData).subscribe({
+        next: () => {
+          this.actionSuccess = 'Voiture ajoutee avec succes.';
+          this.cancelEdit();
+          this.refreshList();
+          this.cdr.detectChanges();
+        },
+        error: () => {
+          this.actionError = 'Impossible d ajouter la voiture. Verifiez que car-service et api-gateway sont demarres.';
+        }
+      });
     }
-
-    this.refreshList();
-    this.cancelEdit();
   }
 
   editCar(car: Car): void {
     this.editingCarId = car.id;
     this.form.patchValue(car);
+    this.cdr.detectChanges();
   }
 
   deleteCar(id: number): void {
     if (confirm('Voulez-vous vraiment supprimer cette voiture ?')) {
-      this.carService.deleteCar(id);
-      this.refreshList();
+      this.carService.deleteCar(id).subscribe({
+        next: () => {
+          this.actionSuccess = 'Voiture supprimee avec succes.';
+          this.refreshList();
+          this.cdr.detectChanges();
+        },
+        error: () => {
+          this.actionError = 'Impossible de supprimer la voiture.';
+        }
+      });
     }
   }
 
   toggleAvailability(id: number): void {
-    this.carService.toggleAvailability(id);
-    this.refreshList();
+    const current = this.cars.find(car => car.id === id);
+    if (!current) return;
+
+    const toggled = { ...current, available: !current.available };
+    this.cars = this.cars.map(item => item.id === id ? toggled : item);
+    this.cdr.detectChanges();
+
+    this.carService.updateCar(id, toggled).subscribe({
+      next: car => {
+        this.cars = this.cars.map(item => item.id === id ? car : item);
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.cars = this.cars.map(item => item.id === id ? current : item);
+        this.actionError = 'Impossible de changer la disponibilite.';
+        this.cdr.detectChanges();
+      }
+    });
   }
 
   cancelEdit(): void {
@@ -85,6 +135,15 @@ export class AdminCarsComponent {
   }
 
   private refreshList(): void {
-    this.cars = [...this.carService.getCars()];
+    this.carService.getCars().subscribe({
+      next: cars => {
+        this.cars = [...cars];
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.actionError = 'Impossible de charger les voitures. Verifiez que car-service est demarre.';
+        this.cdr.detectChanges();
+      }
+    });
   }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CarService } from '../../services/car.service';
 import { Car } from '../../models/car.model';
@@ -13,8 +13,15 @@ import { Car } from '../../models/car.model';
 export class CarDetailsComponent {
   car?: Car;
 
-  constructor(private route: ActivatedRoute, private carService: CarService) {
+  constructor(
+    private route: ActivatedRoute,
+    private carService: CarService,
+    private cdr: ChangeDetectorRef
+  ) {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.car = this.carService.getCarById(id);
+    this.carService.getCarById(id).subscribe(car => {
+      this.car = car;
+      this.cdr.detectChanges();
+    });
   }
 }

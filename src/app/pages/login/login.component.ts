@@ -36,20 +36,17 @@ export class LoginComponent {
 
     const { email, password } = this.form.getRawValue();
 
-    const success = this.authService.login(
-      email || '',
-      password || ''
-    );
-
-    if (!success) {
-      this.loginError = true;
-      return;
-    }
-
-    if (this.authService.isAdmin()) {
-      this.router.navigate(['/admin/cars']);
-    } else {
-      this.router.navigate(['/profile']);
-    }
+    this.authService.login(email || '', password || '').subscribe({
+      next: () => {
+        if (this.authService.isAdmin()) {
+          this.router.navigate(['/admin/cars']);
+        } else {
+          this.router.navigate(['/profile']);
+        }
+      },
+      error: () => {
+        this.loginError = true;
+      }
+    });
   }
 }

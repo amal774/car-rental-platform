@@ -36,6 +36,14 @@
       <p class="error">Merci de remplir correctement tous les champs.</p>
       }
 
+      @if(actionError){
+      <p class="error">{{ actionError }}</p>
+      }
+
+      @if(actionSuccess){
+      <p class="success">{{ actionSuccess }}</p>
+      }
+
       <button class="btn" type="submit">
         {{ editingCarId ? 'Enregistrer' : 'Ajouter' }}
       </button>

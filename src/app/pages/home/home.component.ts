@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CarService } from '../../services/car.service';
 import { Car } from '../../models/car.model';
@@ -18,15 +18,21 @@ export class HomeComponent {
 
   constructor(
     private carService: CarService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
-    this.popularCars = this.carService.getCars().slice(0, 3);
+    this.carService.getCars().subscribe(cars => {
+      this.popularCars = cars.slice(0, 3);
+      this.cdr.detectChanges();
+    });
   }
 
   searchCars(term: string): void {
+    const search = term.trim();
+
     this.router.navigate(['/cars'], {
       queryParams: {
-        search: term
+        search
       }
     });
   }

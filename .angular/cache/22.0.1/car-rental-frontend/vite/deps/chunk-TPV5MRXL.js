@@ -1,4 +1,7 @@
 import {
+  PlatformLocation
+} from "./chunk-YQDH5TMU.js";
+import {
   ApplicationRef,
   Attribute,
   ChangeDetectorRef,
@@ -29,12 +32,9 @@ import {
   RendererStyleFlags2,
   RuntimeError,
   Service,
-  Subject,
   TemplateRef,
   Version,
   ViewContainerRef,
-  __spreadProps,
-  __spreadValues,
   booleanAttribute,
   createNgModule,
   findLocaleData,
@@ -64,123 +64,13 @@ import {
   ɵɵinject,
   ɵɵinjectAttribute,
   ɵɵstyleProp
-} from "./chunk-FDYG3MSC.js";
-
-// node_modules/@angular/common/fesm2022/_platform_location-chunk.mjs
-var _DOM = null;
-function getDOM() {
-  return _DOM;
-}
-function setRootDomAdapter(adapter) {
-  _DOM ??= adapter;
-}
-var DomAdapter = class {
-};
-var PlatformLocation = class _PlatformLocation {
-  historyGo(relativePosition) {
-    throw new Error(ngDevMode ? "Not implemented" : "");
-  }
-  static ɵfac = function PlatformLocation_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _PlatformLocation)();
-  };
-  static ɵprov = ɵɵdefineInjectable({
-    token: _PlatformLocation,
-    factory: () => (() => inject(BrowserPlatformLocation))(),
-    providedIn: "platform"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PlatformLocation, [{
-    type: Injectable,
-    args: [{
-      providedIn: "platform",
-      useFactory: () => inject(BrowserPlatformLocation)
-    }]
-  }], null, null);
-})();
-var LOCATION_INITIALIZED = new InjectionToken(typeof ngDevMode !== "undefined" && ngDevMode ? "Location Initialized" : "");
-var BrowserPlatformLocation = class _BrowserPlatformLocation extends PlatformLocation {
-  _location;
-  _history;
-  _doc = inject(DOCUMENT);
-  constructor() {
-    super();
-    this._location = window.location;
-    this._history = window.history;
-  }
-  getBaseHrefFromDOM() {
-    return getDOM().getBaseHref(this._doc);
-  }
-  onPopState(fn) {
-    const window2 = getDOM().getGlobalEventTarget(this._doc, "window");
-    window2.addEventListener("popstate", fn, false);
-    return () => window2.removeEventListener("popstate", fn);
-  }
-  onHashChange(fn) {
-    const window2 = getDOM().getGlobalEventTarget(this._doc, "window");
-    window2.addEventListener("hashchange", fn, false);
-    return () => window2.removeEventListener("hashchange", fn);
-  }
-  get href() {
-    return this._location.href;
-  }
-  get protocol() {
-    return this._location.protocol;
-  }
-  get hostname() {
-    return this._location.hostname;
-  }
-  get port() {
-    return this._location.port;
-  }
-  get pathname() {
-    return this._location.pathname;
-  }
-  get search() {
-    return this._location.search;
-  }
-  get hash() {
-    return this._location.hash;
-  }
-  set pathname(newPath) {
-    this._location.pathname = newPath;
-  }
-  pushState(state, title, url) {
-    this._history.pushState(state, title, url);
-  }
-  replaceState(state, title, url) {
-    this._history.replaceState(state, title, url);
-  }
-  forward() {
-    this._history.forward();
-  }
-  back() {
-    this._history.back();
-  }
-  historyGo(relativePosition = 0) {
-    this._history.go(relativePosition);
-  }
-  getState() {
-    return this._history.state;
-  }
-  static ɵfac = function BrowserPlatformLocation_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _BrowserPlatformLocation)();
-  };
-  static ɵprov = ɵɵdefineInjectable({
-    token: _BrowserPlatformLocation,
-    factory: () => (() => new _BrowserPlatformLocation())(),
-    providedIn: "platform"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BrowserPlatformLocation, [{
-    type: Injectable,
-    args: [{
-      providedIn: "platform",
-      useFactory: () => new BrowserPlatformLocation()
-    }]
-  }], () => [], null);
-})();
+} from "./chunk-2V3TBBCC.js";
+import {
+  Subject,
+  __async,
+  __spreadProps,
+  __spreadValues
+} from "./chunk-MTKG5SJP.js";
 
 // node_modules/@angular/common/fesm2022/_location-chunk.mjs
 function joinWithSlash(start, end) {
@@ -2108,7 +1998,7 @@ var NgForOf = class _NgForOf {
         if (typeof ngDevMode === "undefined" || ngDevMode) {
           try {
             this._differ = this._differs.find(value).create(this.ngForTrackBy);
-          } catch {
+          } catch (e) {
             let errorMessage = `Cannot find a differ supporting object '${value}' of type '${getTypeName(value)}'. NgFor only supports binding to Iterables, such as Arrays.`;
             if (typeof value === "object") {
               errorMessage += " Did you mean to use the keyvalue pipe?";
@@ -3347,63 +3237,6 @@ var PlatformNavigation = class _PlatformNavigation {
   }], null, null);
 })();
 
-// node_modules/@angular/common/fesm2022/_xhr-chunk.mjs
-function parseCookieValue(cookieStr, name) {
-  name = encodeURIComponent(name);
-  for (const cookie of cookieStr.split(";")) {
-    const eqIndex = cookie.indexOf("=");
-    const [cookieName, cookieValue] = eqIndex == -1 ? [cookie, ""] : [cookie.slice(0, eqIndex), cookie.slice(eqIndex + 1)];
-    if (cookieName.trim() === name) {
-      return decodeURIComponent(cookieValue);
-    }
-  }
-  return null;
-}
-var BrowserXhr = class _BrowserXhr {
-  build() {
-    return new XMLHttpRequest();
-  }
-  static ɵfac = function BrowserXhr_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _BrowserXhr)();
-  };
-  static ɵprov = ɵɵdefineService({
-    token: _BrowserXhr,
-    factory: _BrowserXhr.ɵfac
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(BrowserXhr, [{
-    type: Service
-  }], null, null);
-})();
-var XhrFactory = class _XhrFactory {
-  static ɵfac = function XhrFactory_Factory(__ngFactoryType__) {
-    return new (__ngFactoryType__ || _XhrFactory)();
-  };
-  static ɵprov = ɵɵdefineInjectable({
-    token: _XhrFactory,
-    factory: function XhrFactory_Factory(__ngFactoryType__) {
-      let __ngConditionalFactory__ = null;
-      if (__ngFactoryType__) {
-        __ngConditionalFactory__ = new (__ngFactoryType__ || _XhrFactory)();
-      } else {
-        __ngConditionalFactory__ = ɵɵinject(BrowserXhr);
-      }
-      return __ngConditionalFactory__;
-    },
-    providedIn: "root"
-  });
-};
-(() => {
-  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(XhrFactory, [{
-    type: Injectable,
-    args: [{
-      providedIn: "root",
-      useExisting: BrowserXhr
-    }]
-  }], null, null);
-})();
-
 // node_modules/@angular/common/fesm2022/common.mjs
 var NavigationAdapterForLocation = class _NavigationAdapterForLocation extends Location {
   navigation = inject(PlatformNavigation);
@@ -3519,7 +3352,7 @@ var BrowserViewportScroller = class {
   setHistoryScrollRestoration(scrollRestoration) {
     try {
       this.window.history.scrollRestoration = scrollRestoration;
-    } catch {
+    } catch (e) {
       console.warn(formatRuntimeError(2400, ngDevMode && "Failed to set `window.history.scrollRestoration`. This may occur when:\n• The script is running inside a sandboxed iframe\n• The window is partially navigated or inactive\n• The script is executed in an untrusted or special context (e.g., test runners, browser extensions, or content previews)\nScroll position may not be preserved across navigation."));
     }
   }
@@ -3586,7 +3419,7 @@ function isValidPath(path) {
   try {
     const url = new URL(path);
     return true;
-  } catch {
+  } catch (e) {
     return false;
   }
 }
@@ -4703,16 +4536,18 @@ function assertNoLoaderParamsWithoutLoader(dir, imageLoader) {
     console.warn(formatRuntimeError(2963, `${imgDirectiveDetails(dir.ngSrc)} the \`loaderParams\` attribute is present but no image loader is configured (i.e. the default one is being used), which means that the loaderParams data will not be consumed and will not affect the URL. To fix this, provide a custom loader or remove the \`loaderParams\` attribute from the image.`));
   }
 }
-async function assetPriorityCountBelowThreshold(appRef) {
-  if (IMGS_WITH_PRIORITY_ATTR_COUNT === 0) {
-    IMGS_WITH_PRIORITY_ATTR_COUNT++;
-    await appRef.whenStable();
-    if (IMGS_WITH_PRIORITY_ATTR_COUNT > PRIORITY_COUNT_THRESHOLD) {
-      console.warn(formatRuntimeError(2966, `NgOptimizedImage: The "priority" attribute is set to true more than ${PRIORITY_COUNT_THRESHOLD} times (${IMGS_WITH_PRIORITY_ATTR_COUNT} times). Marking too many images as "high" priority can hurt your application's LCP (https://web.dev/lcp). "Priority" should only be set on the image expected to be the page's LCP element.`));
+function assetPriorityCountBelowThreshold(appRef) {
+  return __async(this, null, function* () {
+    if (IMGS_WITH_PRIORITY_ATTR_COUNT === 0) {
+      IMGS_WITH_PRIORITY_ATTR_COUNT++;
+      yield appRef.whenStable();
+      if (IMGS_WITH_PRIORITY_ATTR_COUNT > PRIORITY_COUNT_THRESHOLD) {
+        console.warn(formatRuntimeError(2966, `NgOptimizedImage: The "priority" attribute is set to true more than ${PRIORITY_COUNT_THRESHOLD} times (${IMGS_WITH_PRIORITY_ATTR_COUNT} times). Marking too many images as "high" priority can hurt your application's LCP (https://web.dev/lcp). "Priority" should only be set on the image expected to be the page's LCP element.`));
+      }
+    } else {
+      IMGS_WITH_PRIORITY_ATTR_COUNT++;
     }
-  } else {
-    IMGS_WITH_PRIORITY_ATTR_COUNT++;
-  }
+  });
 }
 function assertPlaceholderDimensions(dir, imgElement) {
   const computedStyle = window.getComputedStyle(imgElement);
@@ -4744,12 +4579,6 @@ function booleanOrUrlAttribute(value) {
 }
 
 export {
-  getDOM,
-  setRootDomAdapter,
-  DomAdapter,
-  PlatformLocation,
-  LOCATION_INITIALIZED,
-  BrowserPlatformLocation,
   normalizeQueryParams,
   LocationStrategy,
   APP_BASE_HREF,
@@ -4823,8 +4652,6 @@ export {
   CommonModule,
   PRECOMMIT_HANDLER_SUPPORTED,
   PlatformNavigation,
-  parseCookieValue,
-  XhrFactory,
   NavigationAdapterForLocation,
   registerLocaleData2 as registerLocaleData,
   PLATFORM_BROWSER_ID,
@@ -4843,4 +4670,4 @@ export {
   PRECONNECT_CHECK_BLOCKLIST,
   NgOptimizedImage
 };
-//# sourceMappingURL=chunk-YG2TH6UD.js.map
+//# sourceMappingURL=chunk-TPV5MRXL.js.map

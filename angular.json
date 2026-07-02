@@ -16,7 +16,7 @@
             "outputPath": "dist/car-rental-frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": [],
             "styles": ["src/styles.css"]
@@ -29,6 +29,9 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+          "options": {
+            "proxyConfig": "proxy.conf.json"
+          },
           "configurations": {
             "production": { "buildTarget": "car-rental-frontend:build:production" },
             "development": { "buildTarget": "car-rental-frontend:build:development" }

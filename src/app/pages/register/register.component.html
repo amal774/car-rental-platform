@@ -46,6 +46,12 @@
     </p>
     }
 
+    @if(registerError){
+    <p class="error">
+        Impossible de creer le compte. Verifiez que auth-service et api-gateway sont demarres, ou que cet email n existe pas deja.
+    </p>
+    }
+
     <button
             class="btn"
             type="submit">
@@ -60,3 +66,10 @@
     </p>
 
 </form>
+
+<app-notification
+        [visible]="showNotification"
+        [title]="notificationTitle"
+        [message]="notificationMessage"
+        (closed)="closeNotification()">
+</app-notification>

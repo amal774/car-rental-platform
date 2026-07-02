@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -30,7 +30,8 @@ export class ReservationComponent {
     private router: Router,
     private carService: CarService,
     private authService: AuthService,
-    private reservationService: ReservationService
+    private reservationService: ReservationService,
+    private cdr: ChangeDetectorRef
   ) {
     if (!this.authService.isLoggedIn()) {
       this.router.navigate(['/login']);
@@ -38,7 +39,10 @@ export class ReservationComponent {
     }
 
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.car = this.carService.getCarById(id);
+    this.carService.getCarById(id).subscribe(car => {
+      this.car = car;
+      this.cdr.detectChanges();
+    });
 
     this.form = this.fb.group({
       start: ['', Validators.required],
@@ -50,6 +54,7 @@ openNotification(title: string, message: string): void {
   this.notificationTitle = title;
   this.notificationMessage = message;
   this.showNotification = true;
+  this.cdr.detectChanges();
 }
 
   total(): number {
@@ -88,14 +93,26 @@ openNotification(title: string, message: string): void {
 
     if (!this.car) return;
 
-    this.reservationService.setReservation({
+    const reservation = {
       car: this.car,
       startDate: this.form.value.start || '',
       endDate: this.form.value.end || '',
       days: this.getDays(),
       totalPrice: this.total()
-    });
+    };
 
-    this.router.navigate(['/reservation-summary']);
+    const customerId = this.authService.getUser()?.id || 1;
+
+    this.reservationService.createReservation(reservation, customerId).subscribe({
+      next: () => {
+        this.router.navigate(['/reservation-summary']);
+      },
+      error: () => {
+        this.openNotification(
+          'Reservation impossible',
+          'Cette voiture est deja reservee pour cette periode. Choisissez une autre date.'
+        );
+      }
+    });
   }
 }

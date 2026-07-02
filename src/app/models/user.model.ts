@@ -7,4 +7,5 @@ export interface User {
   age: number;
   email: string;
   role?: UserRole;
+  isAdmin?: boolean;
 }

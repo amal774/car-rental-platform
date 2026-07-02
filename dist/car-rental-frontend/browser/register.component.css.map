@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["src/app/pages/register/register.component.css"],
+  "sourcesContent": [".form {\r\n  max-width: 550px;\r\n  margin: 50px auto;\r\n}\r\n\r\n.form h1 {\r\n  margin-bottom: 25px;\r\n}\r\n\r\n.form input {\r\n  width: 100%;\r\n  padding: 12px;\r\n  margin-bottom: 14px;\r\n  border: 1px solid #d8dee8;\r\n  border-radius: 12px;\r\n  font-size: 15px;\r\n}\r\n\r\n.error {\r\n  color: #dc3545;\r\n  font-weight: 600;\r\n  margin: 10px 0;\r\n}\r\n\r\n.btn {\r\n  width: 100%;\r\n  margin-top: 10px;\r\n}"],
+  "mappings": ";AAAA,CAAC;AACC,aAAW;AACX,UAAQ,KAAK;AACf;AAEA,CALC,KAKK;AACJ,iBAAe;AACjB;AAEA,CATC,KASK;AACJ,SAAO;AACP,WAAS;AACT,iBAAe;AACf,UAAQ,IAAI,MAAM;AAClB,iBAAe;AACf,aAAW;AACb;AAEA,CAAC;AACC,SAAO;AACP,eAAa;AACb,UAAQ,KAAK;AACf;AAEA,CAAC;AACC,SAAO;AACP,cAAY;AACd;",
+  "names": []
+}
