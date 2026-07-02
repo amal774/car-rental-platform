@@ -1,6 +1,7 @@
 package com.carrental.authservice.controller;
 
 import com.carrental.authservice.dto.LoginRequest;
+import com.carrental.authservice.dto.LoginResponse;
 import com.carrental.authservice.dto.RegisterRequest;
 import com.carrental.authservice.service.AuthService;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(
+    public LoginResponse login(
             @RequestBody LoginRequest request) {
 
         return authService.login(request);

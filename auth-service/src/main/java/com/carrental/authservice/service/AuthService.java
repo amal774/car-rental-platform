@@ -1,6 +1,7 @@
 package com.carrental.authservice.service;
 
 import com.carrental.authservice.dto.LoginRequest;
+import com.carrental.authservice.dto.LoginResponse;
 import com.carrental.authservice.dto.RegisterRequest;
 import com.carrental.authservice.entity.User;
 import com.carrental.authservice.repository.UserRepository;
@@ -25,15 +26,16 @@ public class AuthService {
 
     public String register(RegisterRequest request) {
 
-        if (userRepository.existsByUsername(request.getUsername())) {
-            return "Username already exists";
+        if (userRepository.existsByEmail(request.getEmail())) {
+            return "Email already exists";
         }
 
         User user = new User(
-                request.getUsername(),
+                request.getFullName(),
                 request.getEmail(),
                 passwordEncoder.encode(request.getPassword()),
-                request.getRole()
+                "CUSTOMER",
+                false
         );
 
         userRepository.save(user);
@@ -41,10 +43,10 @@ public class AuthService {
         return "User registered successfully";
     }
 
-    public String login(LoginRequest request) {
+    public LoginResponse login(LoginRequest request) {
 
         User user = userRepository
-                .findByUsername(request.getUsername())
+                .findByEmail(request.getEmail())
                 .orElseThrow(() ->
                         new RuntimeException("User not found"));
 
@@ -55,6 +57,14 @@ public class AuthService {
             throw new RuntimeException("Invalid password");
         }
 
-        return jwtService.generateToken(user.getUsername());
+        String token = jwtService.generateToken(user.getEmail());
+
+        return new LoginResponse(
+                token,
+                user.getId(),
+                user.getFullName(),
+                user.getEmail(),
+                Boolean.TRUE.equals(user.getIsAdmin())
+        );
     }
 }

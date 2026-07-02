@@ -16,8 +16,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String username;
+    @Column(nullable = false)
+    private String fullName;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -28,10 +28,19 @@ public class User {
     @Column(nullable = false)
     private String role;
 
-    public User(String username, String email, String password, String role) {
-        this.username = username;
+    @Column(name = "is_admin", nullable = false)
+    private Boolean isAdmin = false;
+
+    public User(String fullName,
+                String email,
+                String password,
+                String role,
+                Boolean isAdmin) {
+
+        this.fullName = fullName;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.isAdmin = isAdmin;
     }
 }
