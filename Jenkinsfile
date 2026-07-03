@@ -100,6 +100,8 @@ pipeline {
       }
       steps {
         bat '''
+          docker logout || echo Docker logout skipped
+
           docker build -t %DOCKERHUB_USER%/%FRONTEND_IMAGE%:latest .
           docker build -t %DOCKERHUB_USER%/%DISCOVERY_IMAGE%:latest ./discovery-service
           docker build -t %DOCKERHUB_USER%/%GATEWAY_IMAGE%:latest ./api-gateway
