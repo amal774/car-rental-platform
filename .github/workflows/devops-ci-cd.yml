@@ -2,9 +2,9 @@ name: DevOps CI/CD
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, master, PFA]
   pull_request:
-    branches: [main, master]
+    branches: [main, master, PFA]
   workflow_dispatch:
 
 env:
