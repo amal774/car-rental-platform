@@ -38,8 +38,12 @@ pipeline {
 
     stage('Build Angular') {
       steps {
-        bat 'npm ci'
-        bat 'npm run build -- --configuration production'
+        bat '''
+          set npm_config_cache=%CD%\\.npm-cache
+          npm cache verify
+          npm install --no-audit --no-fund
+          npm run build -- --configuration production
+        '''
       }
     }
 
