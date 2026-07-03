@@ -1,11 +1,6 @@
 pipeline {
   agent any
 
-  tools {
-    nodejs 'NodeJS 20'
-    jdk 'JDK 21'
-  }
-
   parameters {
     booleanParam(name: 'RUN_SONAR', defaultValue: false, description: 'Run SonarCloud analysis')
     booleanParam(name: 'PUSH_DOCKER', defaultValue: false, description: 'Build and push Docker images to Docker Hub')
