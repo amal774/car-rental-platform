@@ -29,4 +29,8 @@ public class AuthController {
 
         return authService.login(request);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9875c639 (version finale v01)

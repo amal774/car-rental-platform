@@ -43,4 +43,8 @@ public class User {
         this.role = role;
         this.isAdmin = isAdmin;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 9875c639 (version finale v01)

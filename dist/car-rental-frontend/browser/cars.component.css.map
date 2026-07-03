@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/pages/cars/cars.component.css"],
-  "sourcesContent": [".filters {\r\n  display: grid;\r\n  grid-template-columns: 2fr 1fr;\r\n  gap: 16px;\r\n  margin: 24px 0;\r\n}\r\n\r\n.filters input,\r\n.filters select {\r\n  padding: 12px;\r\n  border: 1px solid #d8dee8;\r\n  border-radius: 12px;\r\n  font-size: 15px;\r\n}\r\n\r\n@media(max-width:700px) {\r\n\r\n  .filters {\r\n    grid-template-columns: 1fr;\r\n  }\r\n\r\n}"],
-  "mappings": ";AAAA,CAAC;AACC,WAAS;AACT,yBAAuB,IAAI;AAC3B,OAAK;AACL,UAAQ,KAAK;AACf;AAEA,CAPC,QAOQ;AACT,CARC,QAQQ;AACP,WAAS;AACT,UAAQ,IAAI,MAAM;AAClB,iBAAe;AACf,aAAW;AACb;AAEA,QAAM,WAAW;AAEf,GAjBD;AAkBG,2BAAuB;AACzB;AAEF;",
-  "names": []
-}

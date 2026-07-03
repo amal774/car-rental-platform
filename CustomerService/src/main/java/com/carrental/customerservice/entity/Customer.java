@@ -1,4 +1,5 @@
 package com.carrental.customerservice.entity;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,6 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Customer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,6 +16,8 @@ public class Customer {
     private String firstName;
 
     private String lastName;
+
+    private Integer age;
 
     private String email;
 

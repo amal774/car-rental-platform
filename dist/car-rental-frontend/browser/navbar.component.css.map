@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["angular:styles/component:css;b9baec4de0db0636d37fb79b69cfbec7b58a469216f820495027eda2a0b57311;C:/Users/meche/Downloads/car-rental-frontend/src/app/components/navbar/navbar.component.ts"],
-  "sourcesContent": [".navbar{background:#fff;position:sticky;top:0;z-index:10;box-shadow:0 4px 20px rgba(0,0,0,.06)}.nav-content{height:76px;display:flex;align-items:center;justify-content:space-between}.logo{font-size:24px;font-weight:900;color:#0d6efd}.nav-links{display:flex;align-items:center;gap:28px;font-weight:700}.active{color:#0d6efd}.login{background:#0d6efd;color:#fff;padding:10px 16px;border-radius:12px;border:0;font-weight:800;cursor:pointer}@media(max-width:800px){.nav-content{height:auto;padding:16px;align-items:flex-start}.nav-links{flex-wrap:wrap;gap:14px}.logo{margin-right:10px}}"],
-  "mappings": ";AAAA,CAAC;AAAO,cAAW;AAAK,YAAS;AAAO,OAAI;AAAE,WAAQ;AAAG,cAAW,EAAE,IAAI,KAAK,KAAK,CAAC,EAAC,CAAC,EAAC,CAAC,EAAC;AAAI;AAAC,CAAC;AAAY,UAAO;AAAK,WAAQ;AAAK,eAAY;AAAO,mBAAgB;AAAa;AAAC,CAAC;AAAK,aAAU;AAAK,eAAY;AAAI,SAAM;AAAO;AAAC,CAAC;AAAU,WAAQ;AAAK,eAAY;AAAO,OAAI;AAAK,eAAY;AAAG;AAAC,CAAC;AAAO,SAAM;AAAO;AAAC,CAAC;AAAM,cAAW;AAAQ,SAAM;AAAK,WAAQ,KAAK;AAAK,iBAAc;AAAK,UAAO;AAAE,eAAY;AAAI,UAAO;AAAO;AAAC,QAAM,WAAW;AAAO,GAA7W;AAA0X,YAAO;AAAK,aAAQ;AAAK,iBAAY;AAAU;AAAC,GAAhS;AAA2S,eAAU;AAAK,SAAI;AAAI;AAAC,GAAtX;AAA4X,kBAAa;AAAI;AAAC;",
-  "names": []
-}

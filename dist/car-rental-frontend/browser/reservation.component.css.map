@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/pages/reservation/reservation.component.css"],
-  "sourcesContent": [".form {\r\n  max-width: 600px;\r\n  margin: 50px auto;\r\n}\r\n\r\n.form h1 {\r\n  margin-bottom: 10px;\r\n}\r\n\r\n.form h3 {\r\n  margin-bottom: 25px;\r\n  color: #0d6efd;\r\n}\r\n\r\n.form label {\r\n  display: block;\r\n  margin-top: 15px;\r\n  margin-bottom: 8px;\r\n  font-weight: 600;\r\n}\r\n\r\n.form input {\r\n  width: 100%;\r\n  padding: 12px;\r\n  border: 1px solid #d8dee8;\r\n  border-radius: 12px;\r\n}\r\n\r\n.reservation-summary {\r\n  padding: 20px;\r\n  margin: 20px 0;\r\n}\r\n\r\n.reservation-summary p {\r\n  margin: 10px 0;\r\n}\r\n\r\n.btn {\r\n  width: 100%;\r\n}"],
-  "mappings": ";AAAA,CAAC;AACC,aAAW;AACX,UAAQ,KAAK;AACf;AAEA,CALC,KAKK;AACJ,iBAAe;AACjB;AAEA,CATC,KASK;AACJ,iBAAe;AACf,SAAO;AACT;AAEA,CAdC,KAcK;AACJ,WAAS;AACT,cAAY;AACZ,iBAAe;AACf,eAAa;AACf;AAEA,CArBC,KAqBK;AACJ,SAAO;AACP,WAAS;AACT,UAAQ,IAAI,MAAM;AAClB,iBAAe;AACjB;AAEA,CAAC;AACC,WAAS;AACT,UAAQ,KAAK;AACf;AAEA,CALC,oBAKoB;AACnB,UAAQ,KAAK;AACf;AAEA,CAAC;AACC,SAAO;AACT;",
-  "names": []
-}

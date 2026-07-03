@@ -30,4 +30,8 @@ eureka:
 logging:
   level:
     org.hibernate.SQL: DEBUG
+<<<<<<< HEAD
     org.springframework.web: INFO
+=======
+    org.springframework.web: INFO
+>>>>>>> 9875c639 (version finale v01)

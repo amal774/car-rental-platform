@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/components/search-bar/search-bar.component.css"],
-  "sourcesContent": [".search {\r\n  display: flex;\r\n  gap: 10px;\r\n  background: white;\r\n  padding: 12px;\r\n  border-radius: 18px;\r\n  box-shadow: 0 14px 35px rgba(0,0,0,.12);\r\n}\r\n\r\n.search input {\r\n  flex: 1;\r\n  margin: 0;\r\n  border: 0;\r\n  outline: none;\r\n}"],
-  "mappings": ";AAAA,CAAC;AACC,WAAS;AACT,OAAK;AACL,cAAY;AACZ,WAAS;AACT,iBAAe;AACf,cAAY,EAAE,KAAK,KAAK,KAAK,CAAC,EAAC,CAAC,EAAC,CAAC,EAAC;AACrC;AAEA,CATC,OASO;AACN,QAAM;AACN,UAAQ;AACR,UAAQ;AACR,WAAS;AACX;",
-  "names": []
-}

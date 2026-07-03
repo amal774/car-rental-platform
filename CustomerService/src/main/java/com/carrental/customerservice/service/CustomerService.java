@@ -24,4 +24,24 @@ public class CustomerService {
     public void deleteCustomer(Long id) {
         repository.deleteById(id);
     }
+
+    public Customer getCustomerById(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Customer not found"));
+    }
+    public Customer updateCustomer(Long id, Customer customer) {
+
+        Customer existingCustomer = repository.findById(id)
+                .orElseThrow(() ->
+                        new RuntimeException("Customer not found"));
+
+        existingCustomer.setFirstName(customer.getFirstName());
+        existingCustomer.setLastName(customer.getLastName());
+        existingCustomer.setAge(customer.getAge());
+        existingCustomer.setEmail(customer.getEmail());
+        existingCustomer.setPhone(customer.getPhone());
+
+        return repository.save(existingCustomer);
+    }
 }

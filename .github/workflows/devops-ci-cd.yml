@@ -1,0 +1,173 @@
+name: DevOps CI/CD
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+env:
+  DOCKERHUB_NAMESPACE: ${{ secrets.DOCKERHUB_USERNAME }}
+  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+  DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  KUBE_CONFIG_B64: ${{ secrets.KUBE_CONFIG }}
+
+jobs:
+  build-and-test:
+    name: Build project
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Build Angular frontend
+        run: |
+          npm ci
+          npm run build
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Build Maven services
+        shell: bash
+        run: |
+          for service in discovery-service api-gateway auth-service CustomerService rental-service; do
+            echo "Building $service"
+            (cd "$service" && chmod +x mvnw && ./mvnw clean package -DskipTests)
+          done
+
+      - name: Build Gradle car-service
+        run: |
+          cd car-service
+          chmod +x gradlew
+          ./gradlew clean bootJar -x test
+
+  sonarcloud:
+    name: SonarCloud analysis
+    runs-on: ubuntu-latest
+    needs: build-and-test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: SonarCloud scan
+        if: env.SONAR_TOKEN != ''
+        uses: SonarSource/sonarqube-scan-action@v5
+        env:
+          SONAR_TOKEN: ${{ env.SONAR_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
+
+  docker:
+    name: Build and push Docker images
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: github.event_name == 'push'
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - image: car-rental-frontend
+            context: .
+          - image: car-rental-discovery-service
+            context: ./discovery-service
+          - image: car-rental-api-gateway
+            context: ./api-gateway
+          - image: car-rental-auth-service
+            context: ./auth-service
+          - image: car-rental-car-service
+            context: ./car-service
+          - image: car-rental-customer-service
+            context: ./CustomerService
+          - image: car-rental-rental-service
+            context: ./rental-service
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Login to Docker Hub
+        if: env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != ''
+        uses: docker/login-action@v3
+        with:
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_TOKEN }}
+
+      - name: Setup Node.js for frontend image
+        if: matrix.image == 'car-rental-frontend' && env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != ''
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Build frontend dist for Docker image
+        if: matrix.image == 'car-rental-frontend' && env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != ''
+        run: |
+          npm ci
+          npm run build -- --configuration production
+
+      - name: Set Docker metadata
+        if: env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != ''
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.DOCKERHUB_NAMESPACE }}/${{ matrix.image }}
+          tags: |
+            type=raw,value=latest
+            type=sha,prefix=
+
+      - name: Build and push image
+        if: env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != ''
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ matrix.context }}
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  deploy-kubernetes:
+    name: Deploy to Kubernetes
+    runs-on: ubuntu-latest
+    needs: docker
+    if: github.event_name == 'push'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure kubeconfig
+        if: env.KUBE_CONFIG_B64 != ''
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ env.KUBE_CONFIG_B64 }}" | base64 -d > $HOME/.kube/config
+
+      - name: Deploy manifests
+        if: env.KUBE_CONFIG_B64 != ''
+        run: |
+          kubectl apply -f k8s/
+          kubectl set image deployment/frontend frontend=${{ secrets.DOCKERHUB_USERNAME }}/car-rental-frontend:latest -n car-rental
+          kubectl set image deployment/discovery-service discovery-service=${{ secrets.DOCKERHUB_USERNAME }}/car-rental-discovery-service:latest -n car-rental
+          kubectl set image deployment/api-gateway api-gateway=${{ secrets.DOCKERHUB_USERNAME }}/car-rental-api-gateway:latest -n car-rental
+          kubectl set image deployment/auth-service auth-service=${{ secrets.DOCKERHUB_USERNAME }}/car-rental-auth-service:latest -n car-rental
+          kubectl set image deployment/car-service car-service=${{ secrets.DOCKERHUB_USERNAME }}/car-rental-car-service:latest -n car-rental
+          kubectl set image deployment/customer-service customer-service=${{ secrets.DOCKERHUB_USERNAME }}/car-rental-customer-service:latest -n car-rental
+          kubectl set image deployment/rental-service rental-service=${{ secrets.DOCKERHUB_USERNAME }}/car-rental-rental-service:latest -n car-rental
+          kubectl rollout status deployment/frontend -n car-rental

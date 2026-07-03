@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["angular:styles/component:css;0d45ae45ed99e572328ea1a9f2cf53d5aa74e2688eb6e33c6c4a2b07d94128fd;C:/Users/meche/Downloads/car-rental-frontend/src/app/components/footer/footer.component.ts"],
-  "sourcesContent": ["\n        footer{background:#111827;color:#fff;margin-top:50px}.footer{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:30px 0}"],
-  "mappings": ";AACQ;AAAO,cAAW;AAAQ,SAAM;AAAK,cAAW;AAAI;AAAC,CAAC;AAAO,WAAQ;AAAK,mBAAgB;AAAc,OAAI;AAAK,aAAU;AAAK,WAAQ,KAAK;AAAC;",
-  "names": []
-}

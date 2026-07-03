@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/pages/login/login.component.css"],
-  "sourcesContent": [".hint {\r\n  background: #f5f7fb;\r\n  border-radius: 10px;\r\n  padding: 8px 10px;\r\n  margin: 6px 0;\r\n  color: #42526b;\r\n  font-size: 14px;\r\n}\r\n\r\n.form {\r\n  max-width: 500px;\r\n  margin: 50px auto;\r\n}\r\n\r\n.form label {\r\n  display: block;\r\n  margin-top: 15px;\r\n  font-weight: 600;\r\n}\r\n\r\n.form input {\r\n  width: 100%;\r\n  padding: 12px;\r\n  border: 1px solid #d8dee8;\r\n  border-radius: 10px;\r\n  margin-top: 5px;\r\n}\r\n\r\n.error {\r\n  color: #dc3545;\r\n  margin-top: 5px;\r\n  font-size: 14px;\r\n}"],
-  "mappings": ";AAAA,CAAC;AACC,cAAY;AACZ,iBAAe;AACf,WAAS,IAAI;AACb,UAAQ,IAAI;AACZ,SAAO;AACP,aAAW;AACb;AAEA,CAAC;AACC,aAAW;AACX,UAAQ,KAAK;AACf;AAEA,CALC,KAKK;AACJ,WAAS;AACT,cAAY;AACZ,eAAa;AACf;AAEA,CAXC,KAWK;AACJ,SAAO;AACP,WAAS;AACT,UAAQ,IAAI,MAAM;AAClB,iBAAe;AACf,cAAY;AACd;AAEA,CAAC;AACC,SAAO;AACP,cAAY;AACZ,aAAW;AACb;",
-  "names": []
-}

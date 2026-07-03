@@ -28,4 +28,16 @@ public class CustomerController {
     public void delete(@PathVariable Long id) {
         service.deleteCustomer(id);
     }
+
+    @GetMapping("/{id}")
+    public Customer getById(@PathVariable Long id) {
+        return service.getCustomerById(id);
+    }
+
+    @PutMapping("/{id}")
+    public Customer update(@PathVariable Long id,
+                           @RequestBody Customer customer) {
+
+        return service.updateCustomer(id, customer);
+    }
 }

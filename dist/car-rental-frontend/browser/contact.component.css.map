@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/pages/contact/contact.component.css"],
-  "sourcesContent": [".grid {\r\n  display: grid;\r\n  grid-template-columns: 1fr 400px;\r\n  gap: 30px;\r\n}\r\n\r\n.form {\r\n  background: white;\r\n  padding: 30px;\r\n  border-radius: 20px;\r\n  box-shadow: 0 10px 25px rgba(0,0,0,.08);\r\n}\r\n\r\n.form h1 {\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.form input,\r\n.form textarea {\r\n  width: 100%;\r\n  margin-bottom: 15px;\r\n  padding: 12px;\r\n  border: 1px solid #d8dee8;\r\n  border-radius: 12px;\r\n  font-size: 15px;\r\n}\r\n\r\n.contact-info {\r\n  padding: 30px;\r\n}\r\n\r\n.contact-info p {\r\n  margin: 15px 0;\r\n}\r\n\r\n@media(max-width: 900px) {\r\n\r\n  .grid {\r\n    grid-template-columns: 1fr;\r\n  }\r\n\r\n}"],
-  "mappings": ";AAAA,CAAC;AACC,WAAS;AACT,yBAAuB,IAAI;AAC3B,OAAK;AACP;AAEA,CAAC;AACC,cAAY;AACZ,WAAS;AACT,iBAAe;AACf,cAAY,EAAE,KAAK,KAAK,KAAK,CAAC,EAAC,CAAC,EAAC,CAAC,EAAC;AACrC;AAEA,CAPC,KAOK;AACJ,iBAAe;AACjB;AAEA,CAXC,KAWK;AACN,CAZC,KAYK;AACJ,SAAO;AACP,iBAAe;AACf,WAAS;AACT,UAAQ,IAAI,MAAM;AAClB,iBAAe;AACf,aAAW;AACb;AAEA,CAAC;AACC,WAAS;AACX;AAEA,CAJC,aAIa;AACZ,UAAQ,KAAK;AACf;AAEA,QAAM,WAAY;AAEhB,GArCD;AAsCG,2BAAuB;AACzB;AAEF;",
-  "names": []
-}

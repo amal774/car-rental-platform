@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/pages/profile/profile.component.css"],
-  "sourcesContent": [".grid {\r\n  display: grid;\r\n  grid-template-columns: 1fr 1fr;\r\n  gap: 25px;\r\n}\r\n\r\n.profile-card,\r\n.history-card {\r\n  padding: 24px;\r\n}\r\n\r\n.profile-card h2,\r\n.history-card h2 {\r\n  margin-bottom: 20px;\r\n}\r\n\r\n.profile-card p {\r\n  margin: 12px 0;\r\n}\r\n\r\n.reservation-item {\r\n  border-bottom: 1px solid #e5e7eb;\r\n  padding: 15px 0;\r\n}\r\n\r\n.reservation-item:last-child {\r\n  border-bottom: none;\r\n}\r\n\r\n.reservation-item h3 {\r\n  margin: 0;\r\n}\r\n\r\n.reservation-item p {\r\n  margin: 5px 0 0;\r\n  color: #6b7280;\r\n}\r\n\r\n@media (max-width: 768px) {\r\n  .grid {\r\n    grid-template-columns: 1fr;\r\n  }\r\n}"],
-  "mappings": ";AAAA,CAAC;AACC,WAAS;AACT,yBAAuB,IAAI;AAC3B,OAAK;AACP;AAEA,CAAC;AACD,CAAC;AACC,WAAS;AACX;AAEA,CALC,aAKa;AACd,CALC,aAKa;AACZ,iBAAe;AACjB;AAEA,CAVC,aAUa;AACZ,UAAQ,KAAK;AACf;AAEA,CAAC;AACC,iBAAe,IAAI,MAAM;AACzB,WAAS,KAAK;AAChB;AAEA,CALC,gBAKgB;AACf,iBAAe;AACjB;AAEA,CATC,iBASiB;AAChB,UAAQ;AACV;AAEA,CAbC,iBAaiB;AAChB,UAAQ,IAAI,EAAE;AACd,SAAO;AACT;AAEA,QAAO,WAAY;AACjB,GAvCD;AAwCG,2BAAuB;AACzB;AACF;",
-  "names": []
-}

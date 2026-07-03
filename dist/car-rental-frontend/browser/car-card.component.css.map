@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["angular:styles/component:css;2ce4c087e82958b12aa9b975a63ccc88c0b9e20638a4a9e0f0bb4947df6ccab4;C:/Users/meche/Downloads/car-rental-frontend/src/app/components/car-card/car-card.component.ts"],
-  "sourcesContent": [".car img{width:100%;height:190px;object-fit:cover}.body{padding:20px}h3{margin:12px 0 8px}.price{font-size:20px;font-weight:900;margin:18px 0;color:#0d6efd}.btn{display:inline-block}"],
-  "mappings": ";AAAA,CAAC,IAAI;AAAI,SAAM;AAAK,UAAO;AAAM,cAAW;AAAK;AAAC,CAAC;AAAK,WAAQ;AAAI;AAAC;AAAG,UAAO,KAAK,EAAE;AAAG;AAAC,CAAC;AAAM,aAAU;AAAK,eAAY;AAAI,UAAO,KAAK;AAAE,SAAM;AAAO;AAAC,CAAC;AAAI,WAAQ;AAAY;",
-  "names": []
-}

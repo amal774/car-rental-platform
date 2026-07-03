@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["src/app/pages/reservation-summary/reservation-summary.component.css"],
-  "sourcesContent": [".summary-card {\r\n  max-width: 650px;\r\n  margin: auto;\r\n  padding: 30px;\r\n  text-align: center;\r\n}\r\n\r\n.summary-card img {\r\n  width: 100%;\r\n  height: 280px;\r\n  object-fit: cover;\r\n  border-radius: 18px;\r\n  margin: 20px 0;\r\n}\r\n\r\n.summary-card p {\r\n  font-size: 17px;\r\n  margin: 12px 0;\r\n}"],
-  "mappings": ";AAAA,CAAC;AACC,aAAW;AACX,UAAQ;AACR,WAAS;AACT,cAAY;AACd;AAEA,CAPC,aAOa;AACZ,SAAO;AACP,UAAQ;AACR,cAAY;AACZ,iBAAe;AACf,UAAQ,KAAK;AACf;AAEA,CAfC,aAea;AACZ,aAAW;AACX,UAAQ,KAAK;AACf;",
-  "names": []
-}

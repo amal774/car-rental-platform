@@ -1,0 +1,45 @@
+<button class="chatbot-toggle" type="button" (click)="toggleChat()" aria-label="Ouvrir le chatbot">
+  <i class="fas" [class.fa-comments]="!isOpen" [class.fa-times]="isOpen"></i>
+</button>
+
+<section class="chatbot-panel" *ngIf="isOpen">
+  <header class="chatbot-header">
+    <div>
+      <span>Assistant voiture</span>
+      <small *ngIf="isLoading">Chargement des voitures...</small>
+      <small *ngIf="!isLoading">{{ cars.length }} voiture(s) trouvee(s)</small>
+    </div>
+    <button type="button" (click)="toggleChat()" aria-label="Fermer">
+      <i class="fas fa-times"></i>
+    </button>
+  </header>
+
+  <div class="chatbot-messages">
+    <div *ngFor="let message of messages" class="message" [class.user]="message.from === 'user'" [class.bot]="message.from === 'bot'">
+      {{ message.text }}
+    </div>
+  </div>
+
+  <div class="quick-actions">
+    <button type="button" *ngFor="let question of quickQuestions" (click)="askQuick(question)">
+      {{ question }}
+    </button>
+  </div>
+
+  <form class="chatbot-form" (ngSubmit)="sendMessage()">
+    <input
+      type="text"
+      name="chatMessage"
+      [(ngModel)]="userMessage"
+      placeholder="Ex: voiture familiale automatique"
+      autocomplete="off"
+    />
+    <button type="submit" aria-label="Envoyer">
+      <i class="fas fa-paper-plane"></i>
+    </button>
+  </form>
+
+  <button class="cars-link" type="button" (click)="goToCars()">
+    Voir les voitures
+  </button>
+</section>
