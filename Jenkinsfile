@@ -1,19 +1,20 @@
 pipeline {
   agent any
 
-  options {
-    timestamps()
-    disableConcurrentBuilds()
+  tools {
+    nodejs 'NodeJS 20'
+    jdk 'JDK 21'
   }
 
   parameters {
     booleanParam(name: 'RUN_SONAR', defaultValue: false, description: 'Run SonarCloud analysis')
     booleanParam(name: 'PUSH_DOCKER', defaultValue: false, description: 'Build and push Docker images to Docker Hub')
-    booleanParam(name: 'DEPLOY_K8S', defaultValue: false, description: 'Deploy Kubernetes manifests')
-    string(name: 'DOCKERHUB_NAMESPACE', defaultValue: 'amal774', description: 'Docker Hub username or namespace')
+    booleanParam(name: 'DEPLOY_K8S', defaultValue: false, description: 'Deploy Kubernetes manifests to Minikube')
   }
 
   environment {
+    DOCKERHUB_USER = 'mechergui508'
+
     FRONTEND_IMAGE = 'car-rental-frontend'
     DISCOVERY_IMAGE = 'car-rental-discovery-service'
     GATEWAY_IMAGE = 'car-rental-api-gateway'
@@ -30,29 +31,55 @@ pipeline {
       }
     }
 
+    stage('Check Tools') {
+      steps {
+        bat 'node --version'
+        bat 'npm --version'
+        bat 'java -version'
+        bat 'docker --version'
+        bat 'kubectl version --client'
+      }
+    }
+
     stage('Build Angular') {
       steps {
-        sh '''
-          npm ci
-          npm run build -- --configuration production
+        bat 'npm ci'
+        bat 'npm run build -- --configuration production'
+      }
+    }
+
+    stage('Maven Clean Package') {
+      steps {
+        bat '''
+          cd discovery-service
+          call mvnw.cmd clean package -DskipTests
+          cd ..
+
+          cd api-gateway
+          call mvnw.cmd clean package -DskipTests
+          cd ..
+
+          cd auth-service
+          call mvnw.cmd clean package -DskipTests
+          cd ..
+
+          cd CustomerService
+          call mvnw.cmd clean package -DskipTests
+          cd ..
+
+          cd rental-service
+          call mvnw.cmd clean package -DskipTests
+          cd ..
         '''
       }
     }
 
-    stage('Build Spring Boot Services') {
+    stage('Gradle Build Car Service') {
       steps {
-        sh '''
-          for service in discovery-service api-gateway auth-service CustomerService rental-service; do
-            echo "Building $service"
-            cd "$service"
-            chmod +x mvnw
-            ./mvnw clean package -DskipTests
-            cd ..
-          done
-
+        bat '''
           cd car-service
-          chmod +x gradlew
-          ./gradlew clean bootJar -x test
+          call gradlew.bat clean bootJar -x test
+          cd ..
         '''
       }
     }
@@ -62,11 +89,8 @@ pipeline {
         expression { return params.RUN_SONAR }
       }
       steps {
-        withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-          sh '''
-            sonar-scanner \
-              -Dsonar.token=$SONAR_TOKEN
-          '''
+        withSonarQubeEnv('SonarQube') {
+          bat 'sonar-scanner'
         }
       }
     }
@@ -76,50 +100,57 @@ pipeline {
         expression { return params.PUSH_DOCKER }
       }
       steps {
-        sh '''
-          docker build -t $DOCKERHUB_NAMESPACE/$FRONTEND_IMAGE:latest .
-          docker build -t $DOCKERHUB_NAMESPACE/$DISCOVERY_IMAGE:latest ./discovery-service
-          docker build -t $DOCKERHUB_NAMESPACE/$GATEWAY_IMAGE:latest ./api-gateway
-          docker build -t $DOCKERHUB_NAMESPACE/$AUTH_IMAGE:latest ./auth-service
-          docker build -t $DOCKERHUB_NAMESPACE/$CAR_IMAGE:latest ./car-service
-          docker build -t $DOCKERHUB_NAMESPACE/$CUSTOMER_IMAGE:latest ./CustomerService
-          docker build -t $DOCKERHUB_NAMESPACE/$RENTAL_IMAGE:latest ./rental-service
+        bat '''
+          docker build -t %DOCKERHUB_USER%/%FRONTEND_IMAGE%:latest .
+          docker build -t %DOCKERHUB_USER%/%DISCOVERY_IMAGE%:latest ./discovery-service
+          docker build -t %DOCKERHUB_USER%/%GATEWAY_IMAGE%:latest ./api-gateway
+          docker build -t %DOCKERHUB_USER%/%AUTH_IMAGE%:latest ./auth-service
+          docker build -t %DOCKERHUB_USER%/%CAR_IMAGE%:latest ./car-service
+          docker build -t %DOCKERHUB_USER%/%CUSTOMER_IMAGE%:latest ./CustomerService
+          docker build -t %DOCKERHUB_USER%/%RENTAL_IMAGE%:latest ./rental-service
         '''
       }
     }
 
-    stage('Push Docker Images') {
+    stage('Push Docker Hub') {
       when {
         expression { return params.PUSH_DOCKER }
       }
       steps {
-        withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_TOKEN')]) {
-          sh '''
-            echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-            docker push $DOCKERHUB_NAMESPACE/$FRONTEND_IMAGE:latest
-            docker push $DOCKERHUB_NAMESPACE/$DISCOVERY_IMAGE:latest
-            docker push $DOCKERHUB_NAMESPACE/$GATEWAY_IMAGE:latest
-            docker push $DOCKERHUB_NAMESPACE/$AUTH_IMAGE:latest
-            docker push $DOCKERHUB_NAMESPACE/$CAR_IMAGE:latest
-            docker push $DOCKERHUB_NAMESPACE/$CUSTOMER_IMAGE:latest
-            docker push $DOCKERHUB_NAMESPACE/$RENTAL_IMAGE:latest
+        withCredentials([string(credentialsId: 'dockerhub-token', variable: 'DOCKERHUB_TOKEN')]) {
+          bat '''
+            echo %DOCKERHUB_TOKEN% | docker login -u %DOCKERHUB_USER% --password-stdin
+
+            docker push %DOCKERHUB_USER%/%FRONTEND_IMAGE%:latest
+            docker push %DOCKERHUB_USER%/%DISCOVERY_IMAGE%:latest
+            docker push %DOCKERHUB_USER%/%GATEWAY_IMAGE%:latest
+            docker push %DOCKERHUB_USER%/%AUTH_IMAGE%:latest
+            docker push %DOCKERHUB_USER%/%CAR_IMAGE%:latest
+            docker push %DOCKERHUB_USER%/%CUSTOMER_IMAGE%:latest
+            docker push %DOCKERHUB_USER%/%RENTAL_IMAGE%:latest
           '''
         }
       }
     }
 
-    stage('Deploy Kubernetes') {
+    stage('Deploy Kubernetes Minikube') {
       when {
         expression { return params.DEPLOY_K8S }
       }
       steps {
-        withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG_FILE')]) {
-          sh '''
-            export KUBECONFIG=$KUBECONFIG_FILE
-            kubectl apply -f k8s/
-            kubectl rollout status deployment/frontend -n car-rental
-          '''
-        }
+        bat '''
+          kubectl apply -f k8s/
+
+          kubectl set image deployment/frontend frontend=%DOCKERHUB_USER%/%FRONTEND_IMAGE%:latest -n car-rental
+          kubectl set image deployment/discovery-service discovery-service=%DOCKERHUB_USER%/%DISCOVERY_IMAGE%:latest -n car-rental
+          kubectl set image deployment/api-gateway api-gateway=%DOCKERHUB_USER%/%GATEWAY_IMAGE%:latest -n car-rental
+          kubectl set image deployment/auth-service auth-service=%DOCKERHUB_USER%/%AUTH_IMAGE%:latest -n car-rental
+          kubectl set image deployment/car-service car-service=%DOCKERHUB_USER%/%CAR_IMAGE%:latest -n car-rental
+          kubectl set image deployment/customer-service customer-service=%DOCKERHUB_USER%/%CUSTOMER_IMAGE%:latest -n car-rental
+          kubectl set image deployment/rental-service rental-service=%DOCKERHUB_USER%/%RENTAL_IMAGE%:latest -n car-rental
+
+          kubectl rollout status deployment/frontend -n car-rental
+        '''
       }
     }
   }
