@@ -67,8 +67,4 @@ public class AuthService {
                 Boolean.TRUE.equals(user.getIsAdmin())
         );
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 9875c639 (version finale v01)

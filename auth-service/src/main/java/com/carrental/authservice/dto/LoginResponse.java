@@ -11,8 +11,4 @@ public class LoginResponse {
     private String fullName;
     private String email;
     private Boolean isAdmin;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 9875c639 (version finale v01)

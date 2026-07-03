@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 package com.carrental.rentalservice.client;
 
 import com.carrental.rentalservice.dto.CustomerDTO;
@@ -11,18 +10,4 @@ public interface CustomerClient {
 
     @GetMapping("/customers/{id}")
     CustomerDTO getCustomerById(@PathVariable Long id);
-=======
-package com.carrental.rentalservice.client;
-
-import com.carrental.rentalservice.dto.CustomerDTO;
-import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
-@FeignClient(name = "customer-service")
-public interface CustomerClient {
-
-    @GetMapping("/customers/{id}")
-    CustomerDTO getCustomerById(@PathVariable Long id);
->>>>>>> 9875c639 (version finale v01)
 }

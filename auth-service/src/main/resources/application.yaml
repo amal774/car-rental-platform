@@ -1,4 +1,4 @@
-﻿server:
+server:
   port: 8084
 
 spring:
@@ -26,8 +26,4 @@ eureka:
 
 jwt:
   secret: myVerySecretKeyForCarRentalProject2026MyVerySecretKey
-<<<<<<< HEAD
   expiration: 86400000
-=======
-  expiration: 86400000
->>>>>>> 9875c639 (version finale v01)
