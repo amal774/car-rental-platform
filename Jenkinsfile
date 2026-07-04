@@ -143,7 +143,13 @@ pipeline {
       }
       steps {
         bat '''
-          kubectl apply -f k8s/
+          kubectl config current-context
+          kubectl get nodes
+
+          kubectl apply -f k8s/namespace.yaml
+          kubectl apply -f k8s/mysql.yaml
+          kubectl apply -f k8s/backend.yaml
+          kubectl apply -f k8s/frontend.yaml
 
           kubectl set image deployment/frontend frontend=%DOCKERHUB_USER%/%FRONTEND_IMAGE%:latest -n car-rental
           kubectl set image deployment/discovery-service discovery-service=%DOCKERHUB_USER%/%DISCOVERY_IMAGE%:latest -n car-rental
@@ -153,7 +159,17 @@ pipeline {
           kubectl set image deployment/customer-service customer-service=%DOCKERHUB_USER%/%CUSTOMER_IMAGE%:latest -n car-rental
           kubectl set image deployment/rental-service rental-service=%DOCKERHUB_USER%/%RENTAL_IMAGE%:latest -n car-rental
 
-          kubectl rollout status deployment/frontend -n car-rental
+          kubectl rollout status deployment/mysql -n car-rental --timeout=180s
+          kubectl rollout status deployment/discovery-service -n car-rental --timeout=180s
+          kubectl rollout status deployment/api-gateway -n car-rental --timeout=180s
+          kubectl rollout status deployment/auth-service -n car-rental --timeout=180s
+          kubectl rollout status deployment/car-service -n car-rental --timeout=180s
+          kubectl rollout status deployment/customer-service -n car-rental --timeout=180s
+          kubectl rollout status deployment/rental-service -n car-rental --timeout=180s
+          kubectl rollout status deployment/frontend -n car-rental --timeout=180s
+
+          kubectl get pods -n car-rental -o wide
+          kubectl get svc -n car-rental
         '''
       }
     }

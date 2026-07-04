@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
         - name: discovery-service
-          image: your-dockerhub-username/car-rental-discovery-service:latest
+          image: mechergui508/car-rental-discovery-service:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8761
 ---
@@ -48,7 +49,8 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: your-dockerhub-username/car-rental-api-gateway:latest
+          image: mechergui508/car-rental-api-gateway:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8081
           env:
@@ -88,7 +90,8 @@ spec:
     spec:
       containers:
         - name: auth-service
-          image: your-dockerhub-username/car-rental-auth-service:latest
+          image: mechergui508/car-rental-auth-service:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8084
           env:
@@ -137,7 +140,8 @@ spec:
     spec:
       containers:
         - name: car-service
-          image: your-dockerhub-username/car-rental-car-service:latest
+          image: mechergui508/car-rental-car-service:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8082
           env:
@@ -186,7 +190,8 @@ spec:
     spec:
       containers:
         - name: customer-service
-          image: your-dockerhub-username/car-rental-customer-service:latest
+          image: mechergui508/car-rental-customer-service:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8083
           env:
@@ -235,7 +240,8 @@ spec:
     spec:
       containers:
         - name: rental-service
-          image: your-dockerhub-username/car-rental-rental-service:latest
+          image: mechergui508/car-rental-rental-service:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8086
           env:

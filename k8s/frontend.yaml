@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: your-dockerhub-username/car-rental-frontend:latest
+          image: mechergui508/car-rental-frontend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
 ---
@@ -25,9 +26,10 @@ metadata:
   name: frontend
   namespace: car-rental
 spec:
-  type: LoadBalancer
+  type: NodePort
   selector:
     app: frontend
   ports:
     - port: 80
       targetPort: 80
+      nodePort: 30080
