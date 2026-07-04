@@ -9,6 +9,7 @@ pipeline {
 
   environment {
     DOCKERHUB_USER = 'mechergui508'
+    KUBECONFIG = 'C:\\ProgramData\\Jenkins\\.jenkins\\.kube\\config'
 
     FRONTEND_IMAGE = 'car-rental-frontend'
     DISCOVERY_IMAGE = 'car-rental-discovery-service'
