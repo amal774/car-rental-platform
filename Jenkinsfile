@@ -88,10 +88,11 @@ pipeline {
         expression { return params.RUN_SONAR }
       }
       steps {
-        withSonarQubeEnv('SonarQube') {
-          bat '''
-            sonar-scanner.bat -D"sonar.organization=aminemechergui" -D"sonar.projectKey=rent_car"
-          '''
+        script {
+          def scannerHome = tool 'SonarScanner'
+          withSonarQubeEnv('SonarQube') {
+            bat "\"${scannerHome}\\bin\\sonar-scanner.bat\" -D\"sonar.organization=aminemechergui\" -D\"sonar.projectKey=rent_car\""
+          }
         }
       }
     }
