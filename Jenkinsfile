@@ -89,7 +89,9 @@ pipeline {
       }
       steps {
         withSonarQubeEnv('SonarQube') {
-          bat 'sonar-scanner'
+          bat '''
+            sonar-scanner.bat -D"sonar.organization=aminemechergui" -D"sonar.projectKey=rent_car"
+          '''
         }
       }
     }
