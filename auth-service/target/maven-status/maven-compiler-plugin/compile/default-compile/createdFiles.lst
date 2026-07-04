@@ -1,1 +1,10 @@
+com\carrental\authservice\config\SecurityConfig.class
+com\carrental\authservice\service\AuthService.class
+com\carrental\authservice\security\JwtService.class
+com\carrental\authservice\dto\LoginRequest.class
 com\carrental\authservice\dto\LoginResponse.class
+com\carrental\authservice\AuthServiceApplication.class
+com\carrental\authservice\controller\AuthController.class
+com\carrental\authservice\repository\UserRepository.class
+com\carrental\authservice\dto\RegisterRequest.class
+com\carrental\authservice\entity\User.class

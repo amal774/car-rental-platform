@@ -1,0 +1,10 @@
+com\carrental\rentalservice\client\CustomerClient.class
+com\carrental\rentalservice\client\CarClient.class
+com\carrental\rentalservice\dto\CarDTO.class
+com\carrental\rentalservice\dto\CustomerDTO.class
+com\carrental\rentalservice\RentalServiceApplication.class
+com\carrental\rentalservice\controller\RentalController.class
+com\carrental\rentalservice\repository\RentalRepository.class
+com\carrental\rentalservice\service\RentalService.class
+com\carrental\rentalservice\entity\RentalStatus.class
+com\carrental\rentalservice\entity\Rental.class
