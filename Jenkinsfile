@@ -160,6 +160,14 @@ pipeline {
           kubectl set image deployment/customer-service customer-service=%DOCKERHUB_USER%/%CUSTOMER_IMAGE%:latest -n car-rental
           kubectl set image deployment/rental-service rental-service=%DOCKERHUB_USER%/%RENTAL_IMAGE%:latest -n car-rental
 
+          kubectl rollout restart deployment/frontend -n car-rental
+          kubectl rollout restart deployment/discovery-service -n car-rental
+          kubectl rollout restart deployment/api-gateway -n car-rental
+          kubectl rollout restart deployment/auth-service -n car-rental
+          kubectl rollout restart deployment/car-service -n car-rental
+          kubectl rollout restart deployment/customer-service -n car-rental
+          kubectl rollout restart deployment/rental-service -n car-rental
+
           kubectl rollout status deployment/mysql -n car-rental --timeout=180s
           kubectl rollout status deployment/discovery-service -n car-rental --timeout=180s
           kubectl rollout status deployment/api-gateway -n car-rental --timeout=180s
